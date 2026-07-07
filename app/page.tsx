@@ -1,7 +1,7 @@
-import AnimatedButtonWithDottedBg from "@/components/animated-button-with-dotted-gb";
+import AnimatedCard from "@/components/animated-card";
 
 export default function Home() {
   return (
-    <AnimatedButtonWithDottedBg />
+    <AnimatedCard />
   );
 }

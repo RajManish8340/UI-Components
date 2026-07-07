@@ -1,0 +1,25 @@
+<svg width="952" height="652" viewBox="0 0 952 652" xmlns="http://www.w3.org/2000/svg">
+  <!-- Black rounded-square background -->
+  <rect x="140" y="14" width="600" height="600" rx="90" fill="#0a0a0a"/>
+ 
+  <!-- Angular S built from straight-edged polygon blocks, matching the layered/notched style -->
+  <path d="
+    M 560 130
+    L 460 130
+    C 400 130 355 155 355 205
+    C 355 250 390 270 450 285
+    L 490 295
+    C 500 297 505 302 505 310
+    C 505 320 497 326 485 326
+    L 385 326
+    L 385 400
+    L 495 400
+    C 560 400 605 373 605 320
+    C 605 275 570 255 510 240
+    L 470 230
+    C 460 228 455 223 455 216
+    C 455 207 463 200 475 200
+    L 560 200
+    Z
+  " fill="#ffffff"/>
+</svg>
