@@ -1,7 +1,7 @@
-import AnimatedCard from "@/components/animated-card";
+import StaggerAnimation from "@/components/stagger-animation";
 
 export default function Home() {
   return (
-    <AnimatedCard />
+    <StaggerAnimation />
   );
 }
