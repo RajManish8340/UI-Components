@@ -1,7 +1,8 @@
-import StaggerAnimation from "@/components/stagger-animation";
+import ScrollAnimation from "@/components/scroll-animation";
 
 export default function Home() {
   return (
-    <StaggerAnimation />
+    <ScrollAnimation />
+
   );
 }
