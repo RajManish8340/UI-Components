@@ -1,8 +1,7 @@
-import ScrollAnimation from "@/components/scroll-animation";
+import LayoutAnimation from "@/components/layout-animation";
 
 export default function Home() {
   return (
-    <ScrollAnimation />
-
+    <LayoutAnimation />
   );
 }
