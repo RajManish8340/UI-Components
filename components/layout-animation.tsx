@@ -1,8 +1,17 @@
 "use client"
 import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
+import { motion } from "motion/react"
 
 export default function LayoutAnimation() {
+  type Card = {
+    singer: string;
+    title: string;
+    src: string;
+    ctaText: string;
+    ctaLink: string;
+    content: () => React.ReactNode
+  }
 
   const cards: Card[] = [
     {
@@ -75,18 +84,16 @@ export default function LayoutAnimation() {
   ]
 
   const [current, setCurrent] = useState<Card | null>(null)
+
   const useOutsideClick = (callback: () => void) => {
     const ref = useRef<HTMLDivElement>(null)
-
     useEffect(() => {
       const handleClick = (event: MouseEvent) => {
         if (ref.current && !ref.current.contains(event.target as Node)) {
           callback()
         }
       }
-
       document.addEventListener("click", handleClick)
-
       return () => {
         document.removeEventListener("click", handleClick)
       }
@@ -99,31 +106,63 @@ export default function LayoutAnimation() {
   return (
     <div className="min-h-screen w-full bg-gray-100 py-20 relative">
       {current && <div className="fixed z-10 w-full h-screen inset-0 bg-black/50 backdrop-blur-sm" ></div>}
-      {current && <div ref={ref} className="h-150 w-90 fixed inset-0 z-20 m-auto rounded-2xl border bg-white p-4 flex flex-col">
-        <img
-          className="h-60 aspect-square rounded-xl m-2"
-          src={current.src}
-          alt={current.title} />
-        <div className="">
-          <div className="flex items-center justify-between">
-            <div className="flex flex-col text-neutral-500 px-4">
-              <h2 className="text-lg text-black font-bold tracking-tighter">{current.title}</h2>
-              <p>{current.singer}</p>
+      {current &&
+        <motion.div
+          initial={{
+            filter: "blur(10px)",
+            opacity: 0
+          }}
+          animate={{
+            filter: "blur(0px)",
+            opacity: 1
+          }}
+          transition={{
+            delay: 0.1
+          }}
+          layoutId={`card-${current.title}`}
+          ref={ref}
+          className="h-150 w-90 fixed inset-0 z-20 m-auto rounded-2xl border bg-white p-4 flex flex-col overflow-hidden ">
+          <motion.img
+            layoutId={`card-image-${current.title}`}
+            className="h-60 aspect-square rounded-xl m-2"
+            src={current.src}
+            alt={current.title} />
+          <div >
+            <div className="flex items-center justify-between">
+              <div className="flex flex-col text-neutral-500 px-4">
+                <motion.h2 layoutId={`card-title-${current.title}`} className="text-lg text-black font-bold tracking-tighter">{current.title}</motion.h2>
+                <motion.p layoutId={`card-singer-${current.title}`}>{current.singer}</motion.p>
+              </div>
+              <motion.div layoutId={`card-ctaLink-${current.title}`}>
+                <Link
+                  className="text-neutral-700 bg-green-400 px-3 ml-10 rounded-xl"
+                  href={current.ctaLink}>
+                  {current.ctaText}
+                </Link>
+              </motion.div>
             </div>
-            <Link
-              className="text-neutral-500 bg-green-400 px-3 ml-10 rounded-xl"
-              href={current.ctaLink}>
-              {current.ctaText}
-            </Link>
+            <motion.div
+              initial={{
+                filter: "blur(10px)",
+                opacity: 0
+              }}
+              animate={{
+                filter: "blur(0px)",
+                opacity: 1
+              }}
+              transition={{
+                delay: 0.4
+              }}
+              className="h-50 text-[12px] p-2 overflow-y-auto mt-5 text-neutral-500">
+              {current.content()}
+            </motion.div>
           </div>
-          <div className="h-50 text-[12px] p-2 overflow-auto mt-5 text-neutral-500">
-            {current.content()}
-          </div>
-        </div>
-      </div>}
+        </motion.div>}
+
       <div className="flex flex-col max-w-lg mx-auto gap-5 ">
         {cards.map((card, idx) => (
-          <button
+          <motion.button
+            layoutId={`card-${card.title}`}
             onClick={() => {
               setCurrent(card)
             }}
@@ -131,32 +170,26 @@ export default function LayoutAnimation() {
             key={card.title}
           >
             <div className="flex" >
-              <img
+              <motion.img
+                layoutId={`card-image-${card.title}`}
                 className="h-15 w-15 rounded-lg aspect-square"
                 src={card.src}
                 alt={card.title}
               />
             </div>
             <div className="flex flex-col text-neutral-500 px-4">
-              <h2 className="text-lg text-black font-bold tracking-tighter">{card.title}</h2>
-              <p>{card.singer}</p>
+              <motion.h2 layoutId={`card-title-${card.title}`} className="text-lg text-black font-bold tracking-tighter">{card.title}</motion.h2>
+              <motion.p layoutId={`card-singer-${card.title}`}>{card.singer}</motion.p>
             </div>
-            <div className="text-neutral-500 bg-green-400 px-3 ml-10 rounded-xl">
+            <motion.div
+              layoutId={`card-ctaLink-${card.title}`}
+              className="text-neutral-700 bg-green-400 px-3 ml-10 rounded-xl">
               {card.ctaText}
-            </div>
-          </button>
+            </motion.div>
+          </motion.button>
         ))}
       </div>
-    </div>
+    </div >
   )
-
-  type Card = {
-    singer: string;
-    title: string;
-    src: string;
-    ctaText: string;
-    ctaLink: string;
-    content: () => React.ReactNode
-  }
 
 }
