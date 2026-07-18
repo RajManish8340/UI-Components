@@ -1,7 +1,7 @@
-import LayoutAnimation from "@/components/layout-animation";
+import AnimatedSequences from "@/components/animation-sequences";
 
 export default function Home() {
   return (
-    <LayoutAnimation />
+    <AnimatedSequences />
   );
 }
